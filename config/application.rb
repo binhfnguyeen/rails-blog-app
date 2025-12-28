@@ -23,5 +23,8 @@ module BlogApp
     #
     # config.time_zone = "Central Time (US & Canada)"
     # config.eager_load_paths << Rails.root.join("extras")
+    config.autoload_paths += Dir["#{config.root}/app/entities"]
+    config.autoload_paths += Dir["#{config.root}/app/api"]
+    config.autoload_paths += Dir["#{config.root}/app/interactors"]
   end
 end

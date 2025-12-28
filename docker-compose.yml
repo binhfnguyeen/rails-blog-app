@@ -12,11 +12,14 @@ services:
       - postgres_data:/var/lib/postgresql/data
 
   web:
-    build: .
-    image: blog-app
+    build:
+      context: .
+      dockerfile: Dockerfile.dev
+    image: blog-app-dev
     command: "./bin/rails server -b 0.0.0.0"
     volumes:
       - .:/rails
+      - gem_cache:/usr/local/bundle # Lưu gem vào volume riêng để không bị mất
     ports:
       - "3000:3000"
     environment:
@@ -27,5 +30,7 @@ services:
     depends_on:
       - postgres
 
+# Khai báo volume
 volumes:
   postgres_data:
+  gem_cache:
