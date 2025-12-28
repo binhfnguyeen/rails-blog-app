@@ -1,0 +1,31 @@
+services:
+  postgres:
+    image: postgres:15-alpine
+    container_name: rails-postgres
+    environment:
+      POSTGRES_USER: rails_user
+      POSTGRES_PASSWORD: 123
+      POSTGRES_DB: blog_app
+    ports:
+      - "5433:5432"
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+
+  web:
+    build: .
+    image: blog-app
+    command: "./bin/rails server -b 0.0.0.0"
+    volumes:
+      - .:/rails
+    ports:
+      - "3000:3000"
+    environment:
+      DATABASE_HOST: postgres
+      DATABASE_USERNAME: rails_user
+      DATABASE_PASSWORD: 123
+      DATABASE_NAME: blog_app
+    depends_on:
+      - postgres
+
+volumes:
+  postgres_data:
