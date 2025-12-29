@@ -1,0 +1,21 @@
+<h2>Chỉnh sửa bài viết #<%= @post.id %></h2>
+
+<%= form_with(model: [:admin, @post], local: true) do |form| %>
+  <div class="mb-3">
+    <%= form.label :title, class: "form-label" %>
+    <%= form.text_field :title, class: "form-control" %>
+  </div>
+
+  <div class="mb-3">
+    <%= form.label :content, class: "form-label" %>
+    <%= form.text_area :content, rows: 5, class: "form-control" %>
+  </div>
+
+  <div class="mb-3">
+    <%= form.label :status, class: "form-label" %>
+    <%= form.select :status, Post.statuses.keys, {}, class: "form-select" %>
+  </div>
+
+  <%= form.submit "Cập nhật", class: "btn btn-success" %>
+  <%= link_to "Hủy", admin_posts_path, class: "btn btn-secondary" %>
+<% end %>

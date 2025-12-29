@@ -1,0 +1,33 @@
+<div class="d-flex justify-content-between align-items-center mb-3">
+  <h2>Quản lý bài viết</h2>
+</div>
+
+<table class="table table-striped table-hover">
+  <thead class="table-dark">
+  <tr>
+    <th>ID</th>
+    <th>Tiêu đề</th>
+    <th>Tác giả</th>
+    <th>Trạng thái</th>
+    <th>Hành động</th>
+  </tr>
+  </thead>
+  <tbody>
+  <% @posts.each do |post| %>
+    <tr>
+      <td><%= post.id %></td>
+      <td><%= post.title %></td>
+      <td><%= post.user.email %></td>
+      <td>
+          <span class="badge bg-<%= post.published? ? 'success' : 'secondary' %>">
+            <%= post.status %>
+          </span>
+      </td>
+      <td>
+        <%= link_to 'Sửa', edit_admin_post_path(post), class: 'btn btn-sm btn-primary' %>
+        <%= button_to 'Xóa', admin_post_path(post), method: :delete, form: { data: { turbo_confirm: 'Bạn chắc chắn chứ?' } }, class: 'btn btn-sm btn-danger' %>
+      </td>
+    </tr>
+  <% end %>
+  </tbody>
+</table>
